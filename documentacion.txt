@@ -1,0 +1,74 @@
+tener instalado node, postman, mysql, xamp
+
+en la raiz= (npm init -y)
+ir a code ( code .)
+en el pakage.json cambiar en index.js a app.js
+instalar la dependencia mysql (npm i mysql)
+instalar express (npm i express)
+instalar nodemon en desarrollo ( npm i -D nodemon)
+
+en app.json declarar mis constantes con los servicios 
+
+const express = require('express');
+const mysql = require('mysql');
+
+const bodyParse = require('body-parse');
+const PORT = process.env.PORT || 3050;
+
+const app = express();
+
+usar body parse
+
+app.use(bodyParse().json);
+
+creamos la conexion con la dependencia mysql
+
+const connection = mysql.createConnection({
+    host     : 'localhost',
+    user     : 'root',
+    password : '',
+    database : 'db-fundacion-1'
+});
+
+chequeamos la conexion
+
+connection.connect(error => {
+    if (error){throw error};
+    {console.log('database server running!')};
+});
+
+app.listen(PORT, ()=> console.log('Server running on port ${PORT}'));
+
+crear todas las rutas en modo prueba
+
+//route
+app.get('/', (req,res)=> {
+    res.send('Welcome to Fundacion MAV API');
+});
+//customers
+app.get('/customers', (req,res)=> {
+    res.send('List or customers');
+});
+//id customers
+app.get('/customers/:id', (req,res)=> {
+    res.send('get customers by id');
+});
+//new customer
+app.post('/add', (req,res)=> {
+    res.send('New customer');
+});
+//put customer
+app.put('/update/:id', (req,res)=> {
+    res.send('customer update');
+});
+//delete customer
+app.delete('/update/:id', (req,res)=> {
+    res.send('customer delete');
+});
+
+probarlas en postman
+
+
+
+
+
